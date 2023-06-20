@@ -7,6 +7,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
 import BenifitCard from "@/shared/BenifitCard";
+import ActionButton from "@/shared/ActionButton";
+import BenifitsPageGraphic from '@/assets/BenefitsPageGraphic.png'
 const benifits: Array<BenifitType> = [
   {
     icon: <HomeModernIcon className="h-6 w-6" />,
@@ -28,7 +30,7 @@ const benifits: Array<BenifitType> = [
   },
 ];
 const container = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
     transition: { staggerChildern: 0.2 },
   },
@@ -44,21 +46,32 @@ const Benifits = ({ setSelectedPage }: Props) => {
         onViewportEnter={() => setSelectedPage(SelectedPage.Benifits)}
       >
         {/* Header */}
-        <div className="md:my-5 md:w-3/5">
+        <motion.div
+          className="md:my-5 md:w-3/5"
+          initial="hidden"
+          whileInView="visible"
+          transition={{ duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
+          viewport={{ once: true, amount: 0.5 }}
+        >
           <HeadingText>MORE THAN JUST A GYM</HeadingText>
           <p className="my-5 text-sm ">
             We provide world class fitness equipment, trainers and classes to
             get you to your ultimate fitness goals with ease. We provide true
             care into each and every member.
           </p>
-        </div>
+        </motion.div>
         {/* Benifits */}
-        <motion.div 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{amount: 0.5,once:true}}
-        variants={container}
-        className="mt-5 items-center justify-between gap-8 md:flex">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ amount: 0.5, once: true }}
+          variants={container}
+          className="mt-5 items-center justify-between gap-8 md:flex"
+        >
           {benifits.map((benifit) => (
             <BenifitCard
               key={benifit.title}
@@ -69,6 +82,63 @@ const Benifits = ({ setSelectedPage }: Props) => {
             />
           ))}
         </motion.div>
+
+        {/* graphic and specification*/}
+        <div className="mt-16 items-center justify-between gap-20 md:mt-28 md:flex">
+          {/* graphic */}
+          <img  className="mx-auto" src={BenifitsPageGraphic} alt="benifit page graphic" />
+          {/* description */}
+          <div>
+            {/* title */}
+            <div className="relative">
+              <div className="before:absolute before:-left-20 before:-top-20 before:z-[-1] before:content-abstractwaves">
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  transition={{ duration: 0.5 }}
+                  variants={{
+                    hidden: { opacity: 0, x: -50 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                  viewport={{ once: true, amount: 0.5 }}
+                >
+                  <HeadingText>
+                    MILLIONS OF HAPPY CUSTOMERS GETTING{" "}
+                    <span className="text-primary-500">FIT</span>
+                  </HeadingText>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* desc */}
+            <div>
+              <p className="my-5">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
+                expedita est, ipsam saepe corporis mollitia voluptas porro,
+                animi dignissimos debitis optio ducimus delectus incidunt neque
+                at, voluptates labore fugiat officia blanditiis ullam similique
+                error sit magni. Laboriosam vero, iusto illum, iste quisquam ad
+                non, in dolor earum ducimus praesentium officia.
+              </p>
+              <p className="mb-5">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem
+                ducimus facere reprehenderit nemo culpa quas tempora
+                perspiciatis quia ab officia placeat commodi praesentium sed
+                modi error rem assumenda, voluptatibus officiis dicta ad magni
+                impedit vero consequatur! Magni, inventore. Veniam, deserunt?
+              </p>
+            </div>
+
+            {/* button */}
+            <div className="relative mt-16">
+              <div className="before:absolute before:-bottom-20 before:right-40 before:z-[-1] before:content-sparkles">
+                <ActionButton setSelectedPage={setSelectedPage}>
+                  Join Now
+                </ActionButton>
+              </div>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </section>
   );

@@ -33,6 +33,7 @@ function App() {
       />
       <Home  setSelectedPage={setSelectedPage}/>
       <Benifits  setSelectedPage={setSelectedPage}/>
+      
     </div>
   );
 }
